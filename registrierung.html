@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlexJob – Registrierung</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f9f9f9;
+      color: #2C2C2C;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #2BB9A9;
+      color: white;
+      text-align: center;
+      padding: 1.5rem 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .register-box {
+      background-color: white;
+      padding: 2rem 3rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2BB9A9;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 1.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    label {
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    input {
+      padding: 10px;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .btn {
+      background-color: #2BB9A9;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #24a595;
+      transform: scale(1.03);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 1rem;
+      color: #2BB9A9;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: #2C2C2C;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FlexJob</h1>
+  </header>
+
+  <main>
+    <div class="register-box">
+      <h2>Registrierung</h2>
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <label for="name">Vollständiger Name</label>
+        <input type="text" id="name" placeholder="Vorname Nachname" required>
+
+        <label for="email">E-Mail-Adresse</label>
+        <input type="email" id="email" placeholder="beispiel@email.de" required>
+
+        <label for="password">Passwort</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+
+        <label for="confirm">Passwort bestätigen</label>
+        <input type="password" id="confirm" placeholder="••••••••" required>
+
+        <button type="submit" class="btn">Registrieren</button>
+      </form>
+      <a href="flexjob.html" class="back-link">Zurück zur Startseite</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 FlexJob | Prototyp | FH-Kiel</p>
+  </footer>
+
+  <script>
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const pw = document.getElementById('password').value;
+      const conf = document.getElementById('confirm').value;
+
+      if (pw !== conf) {
+        alert("Die Passwörter stimmen nicht überein!");
+        return;
+      }
+
+      if (!name || !email || !pw) {
+        alert("Bitte alle Felder ausfüllen!");
+        return;
+      }
+
+      alert("Registrierung erfolgreich! (Prototyp)");
+      window.location.href = "flexjob.html";
+    }
+  </script>
+</body>
+</html>

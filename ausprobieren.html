@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlexJob – Jobportal</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #ffffff;
+      color: #2C2C2C;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #2BB9A9;
+      color: white;
+      text-align: center;
+      padding: 25px 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2BB9A9;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    section {
+      flex: 1;
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    
+    .layout-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .info-box {
+      background-color: #EAEAEA;
+      border-radius: 16px;
+      padding: 30px;
+      width: 400px; 
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .info-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+
+    .info-box h3 {
+      color: #2BB9A9;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      background-color: #2BB9A9;
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #24a595;
+      transform: scale(1.05);
+    }
+
+    .btn-disabled {
+      background-color: #aaa !important;
+      cursor: not-allowed;
+    }
+
+    footer {
+      background-color: #2C2C2C;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    }
+
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 8% auto;
+      padding: 25px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      text-align: left;
+      animation: slideIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .close-btn {
+      background-color: #2BB9A9;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      float: right;
+      cursor: pointer;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    #job-list {
+      margin-top: 10px;
+    }
+
+    .job-item {
+      background-color: #EAEAEA;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .accepted {
+      opacity: 0.6;
+      text-decoration: line-through;
+    }
+
+    /* wenn auf Handy */
+    @media (max-width: 850px) {
+      .info-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FlexJob</h1>
+    <a href="flexjob.html"><button class="btn">Zurück</button></a>
+  </header>
+
+  <section>
+    <h2>??????????????</h2>
+    <div class="layout-grid">
+      <div class="info-box">
+        <h3>Für Unternehmen</h3>
+        <p>Stellen Sie kurzfristige Jobs ein, um schnell Personal zu finden.</p>
+        <button class="btn" onclick="openModal('form-modal')">Job ausstellen</button>
+      </div>
+      <div class="info-box">
+        <h3>Für Jobsuchende</h3>
+        <p>Sehen Sie verfügbare Jobs in Ihrer Nähe und bewerben Sie sich direkt.</p>
+        <button class="btn" onclick="showJobs()">Job ansehen</button>
+      </div>
+    </div>
+  </section>
+
+  
+  <div id="form-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('form-modal')">X</button>
+      <h3>Neuen Job eintragen</h3>
+      <input type="text" id="job-title" placeholder="Jobtitel" required />
+      <input type="text" id="job-location" placeholder="Ort" required />
+      <textarea id="job-desc" placeholder="Beschreibung" required></textarea>
+      <button type="button" class="btn" onclick="addJob()">Job speichern</button>
+    </div>
+  </div>
+
+  
+  <div id="list-modal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('list-modal')">X</button>
+      <h3>Verfügbare Jobs</h3>
+      <div id="job-list"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 FlexJob | Prototyp | FH-Kiel</p>
+  </footer>
+
+  <script>
+    const jobs = [];
+
+    function openModal(id) {
+      document.getElementById(id).style.display = "block";
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    function addJob() {
+      const title = document.getElementById('job-title').value;
+      const location = document.getElementById('job-location').value;
+      const desc = document.getElementById('job-desc').value;
+
+      if (title && location && desc) {
+        jobs.push({ title, location, desc, accepted: false });
+        alert("Job erfolgreich gespeichert!");
+        document.getElementById('job-title').value = '';
+        document.getElementById('job-location').value = '';
+        document.getElementById('job-desc').value = '';
+        closeModal('form-modal');
+      } else {
+        alert("Bitte alle Felder ausfüllen.");
+      }
+    }
+
+    function showJobs() {
+      const list = document.getElementById('job-list');
+      list.innerHTML = "";
+      if (jobs.length === 0) {
+        list.innerHTML = "<p>Aktuell keine Jobs verfügbar.</p>";
+      } else {
+        jobs.forEach((job, index) => {
+          const jobHTML = `
+            <div class="job-item ${job.accepted ? 'accepted' : ''}">
+              <strong>${job.title}</strong> – ${job.location}<br>
+              <small>${job.desc}</small><br><br>
+              ${job.accepted 
+                ? "<button class='btn btn-disabled'>Bereits angenommen</button>"
+                : `<button class='btn' onclick='acceptJob(${index})'>Job annehmen</button>`}
+            </div>`;
+          list.innerHTML += jobHTML;
+        });
+      }
+      openModal('list-modal');
+    }
+
+    function acceptJob(index) {
+      jobs[index].accepted = true;
+      alert("Job erfolgreich angenommen!");
+      showJobs();
+    }
+  </script>
+</body>
+</html>
